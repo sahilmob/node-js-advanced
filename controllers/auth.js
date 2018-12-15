@@ -82,7 +82,7 @@ exports.postLogin = (req, res, next) => {
 						email,
 						password
 					},
-					validationErrors: errors.array()
+					validationErrors: [{ param: "email" }, { param: "password" }]
 				});
 			}
 			bcrypt
@@ -104,7 +104,7 @@ exports.postLogin = (req, res, next) => {
 							email,
 							password
 						},
-						validationErrors: errors.array()
+						validationErrors: [{ param: "email" }, { param: "password" }]
 					});
 				})
 				.catch(err => {
