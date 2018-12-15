@@ -15,10 +15,12 @@ router.post(
 	[
 		check("email")
 			.isEmail()
-			.withMessage("Please enter a valid email"),
+			.withMessage("Please enter a valid email")
+			.normalizeEmail(),
 		check("password", "Password must be at least 5 alphanumeric characters")
 			.isLength({ min: 5 })
 			.isAlphanumeric()
+			.trim()
 	],
 	authController.postLogin
 );
@@ -35,16 +37,20 @@ router.post(
 						return Promise.reject("Email already exists");
 					}
 				});
-			}),
+			})
+			.normalizeEmail(),
 		body("password", "Password must be at least 5 alphanumeric characters")
 			.isLength({ min: 5 })
-			.isAlphanumeric(),
-		body("confirmPassword").custom((value, { req }) => {
-			if (req.body.password !== value) {
-				throw new Error("Passwords have to match");
-			}
-			return true;
-		})
+			.isAlphanumeric()
+			.trim(),
+		body("confirmPassword")
+			.custom((value, { req }) => {
+				if (req.body.password !== value) {
+					throw new Error("Passwords have to match");
+				}
+				return true;
+			})
+			.trim()
 	],
 	authController.postSignup
 );
