@@ -7,12 +7,12 @@ const session = require("express-session");
 const MongoDBStore = require("connect-mongodb-session")(session);
 const csrf = require("csurf");
 const flash = require("connect-flash");
+require("dotenv").config();
 
 const errorController = require("./controllers/error");
 const User = require("./models/user");
 
-const MONGODB_URI =
-	"mongodb+srv://sahil:EgmguZoNUpemFdsF@cluster0-ax6dp.mongodb.net/shop";
+const MONGODB_URI = process.env.MONGODB_URI;
 
 const app = express();
 const store = new MongoDBStore({
@@ -66,7 +66,10 @@ app.use(authRoutes);
 app.use(errorController.get404);
 
 mongoose
-	.connect(MONGODB_URI)
+	.connect(
+		MONGODB_URI,
+		{ useNewUrlParser: true }
+	)
 	.then(result => {
 		app.listen(3000);
 	})
