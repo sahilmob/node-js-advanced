@@ -44,13 +44,13 @@ router.post(
 			.isLength({ min: 3 })
 			.isAlphanumeric()
 			.trim(),
-		check("ImageUrl")
+		check("imageUrl")
 			.isURL()
 			.trim(),
 		check("price")
 			.isFloat()
-			.trim("description"),
-		check("title")
+			.trim(""),
+		check("description")
 			.isLength({ min: 8, max: 400 })
 			.trim()
 	],
