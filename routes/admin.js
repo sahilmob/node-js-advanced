@@ -21,9 +21,6 @@ router.post(
 			.isLength({ min: 3 })
 			.isAlphanumeric()
 			.trim(),
-		check("imageUrl")
-			.isURL()
-			.trim(),
 		check("price")
 			.isFloat()
 			.trim(),
@@ -43,9 +40,6 @@ router.post(
 		check("title")
 			.isLength({ min: 3 })
 			.isAlphanumeric()
-			.trim(),
-		check("imageUrl")
-			.isURL()
 			.trim(),
 		check("price")
 			.isFloat()
